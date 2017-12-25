@@ -64,5 +64,5 @@ module.exports = {
     wif: 0xb7,
     dustThreshold: 0,
     isPoS: true
-  }
+  },
 }

@@ -182,7 +182,7 @@ TransactionBuilder.prototype.addInput = function (txHash, vout, sequence, prevOu
   return vin
 }
 
-TransactionBuilder.prototype.addOutput = function (scriptPubKey, value) {
+TransactionBuilder.prototype.addOutput = function (scriptPubKey, value, network) {
   assert(this.inputs.every(function (input) {
     if (input.hashType === undefined) return true
 
@@ -191,7 +191,7 @@ TransactionBuilder.prototype.addOutput = function (scriptPubKey, value) {
 
   // Attempt to get a valid address if it's a base58 address string
   if (typeof scriptPubKey === 'string') {
-    scriptPubKey = Address.toOutputScript(scriptPubKey)
+    scriptPubKey = Address.toOutputScript(scriptPubKey, network)
   }
 
   return this.tx.addOutput(scriptPubKey, value)
@@ -282,7 +282,7 @@ TransactionBuilder.prototype.__build = function (allowIncomplete) {
   return tx
 }
 
-TransactionBuilder.prototype.sign = function (index, keyPair, redeemScript, hashType) {
+TransactionBuilder.prototype.sign = function (network, index, keyPair, redeemScript, hashType) {
   assert(index in this.inputs, 'No input at index: ' + index)
   hashType = hashType || Transaction.SIGHASH_ALL
 
@@ -361,7 +361,7 @@ TransactionBuilder.prototype.sign = function (index, keyPair, redeemScript, hash
 
       // we know nothin' Jon Snow, assume pubKeyHash
       } else {
-        input.prevOutScript = Address.toOutputScript(keyPair.getAddress())
+        input.prevOutScript = Address.toOutputScript(keyPair.getAddress(), network)
         input.prevOutType = 'pubkeyhash'
         input.pubKeys = [kpPubKey]
         input.scriptType = input.prevOutType
