@@ -53,15 +53,15 @@ module.exports = {
     dustThreshold: 0, // https://github.com/dogecoin/dogecoin/blob/v1.7.1/src/core.h#L155-L160
     isPoS: false
   },
-  bitcoinair: {
+  mmocoin: {
     messagePrefix: '\x17PPcoin Signed Message:\n',
     bip32: {
       public: 0x0488b21e,
       private: 0x0488ade4
     },
-    pubKeyHash: 0x4b,
-    scriptHash: 0x75,
-    wif: 0xcb,
+    pubKeyHash: 0x32,
+    scriptHash: 0x6e,
+    wif: 0xb2,
     dustThreshold: 0,
     isPoS: true
   },
